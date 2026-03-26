@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Database Simulator</h1>
+            <p>Execute SQL queries on simulated database tables</p>
+        </header>
+
+        <main>
+            <div class="query-section">
+                <div class="query-header">
+                    <h2>SQL Query Editor</h2>
+                    <div class="query-actions">
+                        <button id="executeBtn" class="btn btn-primary">Execute Query</button>
+                        <button id="clearBtn" class="btn btn-secondary">Clear</button>
+                        <button id="sampleQueriesBtn" class="btn btn-info">Sample Queries</button>
+                    </div>
+                </div>
+                
+                <div class="query-editor">
+                    <textarea id="queryInput" placeholder="Enter your SQL query here..."></textarea>
+                </div>
+                
+                <div class="quick-actions">
+                    <span class="quick-label">Quick Actions:</span>
+                    <button class="quick-btn" data-query="SELECT * FROM users">Show Users</button>
+                    <button class="quick-btn" data-query="SELECT * FROM products">Show Products</button>
+                    <button class="quick-btn" data-query="SHOW TABLES">Show Tables</button>
+                    <button class="quick-btn" data-query="DESCRIBE users">Describe Users</button>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="results-header">
+                    <h2>Results</h2>
+                    <div class="results-info">
+                        <span id="rowCount"></span>
+                        <span id="executionTime"></span>
+                    </div>
+                </div>
+                
+                <div id="resultsContainer" class="results-container">
+                    <div class="placeholder">
+                        <p>Execute a query to see results here</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="schema-section">
+                <div class="schema-header">
+                    <h2>Database Schema</h2>
+                    <button id="refreshSchemaBtn" class="btn btn-secondary">Refresh</button>
+                </div>
+                <div id="schemaContainer" class="schema-container">
+                    <div class="placeholder">
+                        <p>Loading schema...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Sample Queries Modal -->
+    <div id="sampleQueriesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sample Queries</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="query-category">
+                    <h4>Basic SELECT Queries</h4>
+                    <div class="sample-query" data-query="SELECT * FROM users">
+                        <code>SELECT * FROM users</code>
+                        <p>Select all records from users table</p>
+                    </div>
+                    <div class="sample-query" data-query="SELECT name, email FROM users WHERE age > 25">
+                        <code>SELECT name, email FROM users WHERE age > 25</code>
+                        <p>Select specific columns with condition</p>
+                    </div>
+                    <div class="sample-query" data-query="SELECT * FROM products ORDER BY price DESC LIMIT 3">
+                        <code>SELECT * FROM products ORDER BY price DESC LIMIT 3</code>
+                        <p>Select top 3 most expensive products</p>
+                    </div>
+                </div>
+                
+                <div class="query-category">
+                    <h4>INSERT Queries</h4>
+                    <div class="sample-query" data-query="INSERT INTO users (name, email, age) VALUES ('Test User', 'test@example.com', 28)">
+                        <code>INSERT INTO users (name, email, age) VALUES ('Test User', 'test@example.com', 28)</code>
+                        <p>Insert a new user record</p>
+                    </div>
+                </div>
+                
+                <div class="query-category">
+                    <h4>UPDATE Queries</h4>
+                    <div class="sample-query" data-query="UPDATE users SET age = 26 WHERE id = 1">
+                        <code>UPDATE users SET age = 26 WHERE id = 1</code>
+                        <p>Update user age for specific record</p>
+                    </div>
+                </div>
+                
+                <div class="query-category">
+                    <h4>DELETE Queries</h4>
+                    <div class="sample-query" data-query="DELETE FROM users WHERE id > 4">
+                        <code>DELETE FROM users WHERE id > 4</code>
+                        <p>Delete users with ID greater than 4</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

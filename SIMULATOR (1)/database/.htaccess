@@ -1,0 +1,20 @@
+# Enable CORS
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# Handle OPTIONS requests for CORS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# PHP errors (disable in production)
+php_flag display_errors On
+php_value error_reporting E_ALL
+
+# Default index
+DirectoryIndex index.html

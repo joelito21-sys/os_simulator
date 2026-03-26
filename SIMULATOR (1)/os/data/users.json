@@ -1,0 +1,14 @@
+{
+    "admin": {
+        "password": "$2y$10$3j4h0ubqw5q\/2tNvgdZqE.njELh288PoinWkLJpTl2qbSUo3uUqq2",
+        "role": "administrator",
+        "created": "2026-03-17 07:42:58",
+        "last_login": "2026-03-19 10:36:44"
+    },
+    "user": {
+        "password": "$2y$10$TCLR\/1id8lgwLzpgo3Hy4.399HXYpCrMlzr5Pas40O6SErmSqcrxO",
+        "role": "user",
+        "created": "2026-03-17 07:42:58",
+        "last_login": "2026-03-17 07:43:29"
+    }
+}

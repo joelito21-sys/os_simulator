@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="desktop">
+        <!-- Taskbar -->
+        <div id="taskbar">
+            <div class="taskbar-left">
+                <button id="startButton" class="start-button">
+                    <i class="fab fa-windows"></i>
+                    <span>Start</span>
+                </button>
+                <div class="quick-launch">
+                    <button class="quick-launch-btn" data-app="terminal">
+                        <i class="fas fa-terminal"></i>
+                    </button>
+                    <button class="quick-launch-btn" data-app="filemanager">
+                        <i class="fas fa-folder"></i>
+                    </button>
+                    <button class="quick-launch-btn" data-app="editor">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="quick-launch-btn" data-app="browser">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="taskbar-center">
+                <div class="window-list" id="windowList"></div>
+            </div>
+            <div class="taskbar-right">
+                <div class="system-tray">
+                    <button class="tray-icon" title="WiFi">
+                        <i class="fas fa-wifi"></i>
+                    </button>
+                    <button class="tray-icon" title="Volume">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+                <div class="system-info">
+                    <div id="systemDateTime" class="datetime-display">
+                        <div id="systemTime">00:00</div>
+                        <div id="systemDate">01/01/2026</div>
+                    </div>
+                </div>
+                <button id="showDesktopBtn" class="show-desktop-btn" title="Show Desktop"></button>
+            </div>
+        </div>
+
+        <!-- Start Menu -->
+        <div id="startMenu" class="start-menu">
+            <div class="start-menu-sidebar">
+                <div class="sidebar-top">
+                    <button class="sidebar-btn" title="Settings" id="settingsBtn">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="sidebar-btn" title="Documents" data-app="filemanager"
+                        data-path="/home/user/Documents">
+                        <i class="fas fa-file-alt"></i>
+                    </button>
+                    <button class="sidebar-btn" title="Pictures" data-app="filemanager" data-path="/home/user/Pictures">
+                        <i class="fas fa-image"></i>
+                    </button>
+                </div>
+                <div class="sidebar-bottom">
+                    <button class="sidebar-btn" title="User" id="userMenuBtn">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <button class="sidebar-btn shutdown-trigger" title="Power" id="powerBtn">
+                        <i class="fas fa-power-off"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="start-menu-apps">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Type here to search" id="startMenuSearch">
+                </div>
+                <div class="apps-list">
+                    <div class="app-group">
+                        <div class="menu-item" data-app="terminal">
+                            <i class="fas fa-terminal app-icon-terminal"></i>
+                            <span>Command Prompt</span>
+                        </div>
+                        <div class="menu-item" data-app="filemanager">
+                            <i class="fas fa-folder app-icon-folder"></i>
+                            <span>File Explorer</span>
+                        </div>
+                        <div class="menu-item" data-app="editor">
+                            <i class="fas fa-edit app-icon-editor"></i>
+                            <span>Notepad</span>
+                        </div>
+                        <div class="menu-item" data-app="calculator">
+                            <i class="fas fa-calculator app-icon-calc"></i>
+                            <span>Calculator</span>
+                        </div>
+                        <div class="menu-item" data-app="browser">
+                            <i class="fas fa-globe app-icon-browser"></i>
+                            <span>Web Browser</span>
+                        </div>
+                        <div class="menu-item" data-app="paint">
+                            <i class="fas fa-paint-brush app-icon-paint"></i>
+                            <span>Paint</span>
+                        </div>
+                        <div class="menu-item" data-app="taskmanager">
+                            <i class="fas fa-tasks app-icon-tasks"></i>
+                            <span>Task Manager</span>
+                        </div>
+                        <div class="menu-item" data-app="recyclebin">
+                            <i class="fas fa-trash app-icon-trash"></i>
+                            <span>Recycle Bin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="powerMenu" class="sub-menu">
+                <div class="menu-item" id="shutdownBtn"><i class="fas fa-power-off"></i> Shut down</div>
+                <div class="menu-item" id="rebootBtn"><i class="fas fa-sync"></i> Restart</div>
+            </div>
+        </div>
+
+        <!-- Desktop Icons -->
+        <div class="desktop-icons">
+            <div class="desktop-icon" data-app="filemanager" data-path="C:">
+                <i class="fas fa-desktop"></i>
+                <span>This PC</span>
+            </div>
+            <div class="desktop-icon" data-app="filemanager" data-path="/home/user/Documents">
+                <i class="fas fa-file-alt"></i>
+                <span>Documents</span>
+            </div>
+            <div class="desktop-icon" data-app="recyclebin">
+                <i class="fas fa-trash"></i>
+                <span>Recycle Bin</span>
+            </div>
+            <div class="desktop-icon" data-app="terminal">
+                <i class="fas fa-terminal"></i>
+                <span>CMD</span>
+            </div>
+            <div class="desktop-icon" data-app="browser">
+                <i class="fas fa-globe"></i>
+                <span>Browser</span>
+            </div>
+            <div class="desktop-icon" data-app="paint">
+                <i class="fas fa-paint-brush"></i>
+                <span>Paint</span>
+            </div>
+        </div>
+
+        <!-- Right Click Menu -->
+        <div id="contextMenu" class="context-menu">
+            <div class="menu-item" id="ctxRefresh"><i class="fas fa-sync"></i> Refresh</div>
+            <hr>
+            <div class="menu-item" id="ctxNewFolder"><i class="fas fa-folder-plus"></i> New Folder</div>
+            <div class="menu-item" id="ctxNewFile"><i class="fas fa-file-plus"></i> New Text Document</div>
+            <hr>
+            <div class="menu-item" id="ctxPersonalize"><i class="fas fa-palette"></i> Personalize</div>
+        </div>
+
+        <!-- Notifications Container -->
+        <div id="notifications" class="notifications-container"></div>
+
+        <!-- Windows Container -->
+        <div id="windowsContainer"></div>
+    </div>
+
+    <!-- Window Templates -->
+    <template id="windowTemplate">
+        <div class="window">
+            <div class="window-header">
+                <div class="window-title">
+                    <i class="window-icon"></i>
+                    <span class="window-name"></span>
+                </div>
+                <div class="window-controls">
+                    <button class="window-control minimize">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button class="window-control maximize">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="window-control close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="window-content">
+                <!-- Content will be dynamically inserted -->
+            </div>
+        </div>
+    </template>
+
+    <!-- Terminal Template -->
+    <template id="terminalTemplate">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-info">
+                    <span class="terminal-user">user@os-simulator</span>
+                    <span class="terminal-path">~</span>
+                </div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-output" id="terminalOutput"></div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">$</span>
+                    <input type="text" class="terminal-input" id="terminalInput" autofocus>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- File Manager Template -->
+    <template id="fileManagerTemplate">
+        <div class="file-manager">
+            <div class="file-manager-toolbar">
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" id="backBtn">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="toolbar-btn" id="upBtn">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                    <button class="toolbar-btn" id="refreshBtn">
+                        <i class="fas fa-sync"></i>
+                    </button>
+                </div>
+                <div class="toolbar-group">
+                    <input type="text" class="path-input" id="pathInput" readonly>
+                </div>
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" id="newFolderBtn">
+                        <i class="fas fa-folder-plus"></i>
+                        New Folder
+                    </button>
+                    <button class="toolbar-btn" id="newFileBtn">
+                        <i class="fas fa-file-plus"></i>
+                        New File
+                    </button>
+                </div>
+            </div>
+            <div class="file-manager-content">
+                <div class="file-list" id="fileList"></div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Task Manager Template -->
+    <template id="taskManagerTemplate">
+        <div class="task-manager">
+            <div class="task-manager-tabs">
+                <button class="tab-btn active" data-tab="processes">Processes</button>
+                <button class="tab-btn" data-tab="memory">Memory</button>
+                <button class="tab-btn" data-tab="performance">Performance</button>
+            </div>
+            <div class="task-manager-toolbar">
+                <button class="toolbar-btn" id="newProcessBtn">
+                    <i class="fas fa-plus"></i>
+                    New Process
+                </button>
+                <button class="toolbar-btn" id="killProcessBtn">
+                    <i class="fas fa-times"></i>
+                    Kill Process
+                </button>
+                <button class="toolbar-btn" id="refreshProcessesBtn">
+                    <i class="fas fa-sync"></i>
+                    Refresh
+                </button>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="processesTab">
+                    <table class="process-table">
+                        <thead>
+                            <tr>
+                                <th>PID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>State</th>
+                                <th>Memory</th>
+                                <th>CPU</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="processTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="memoryTab">
+                    <div class="memory-info">
+                        <div class="memory-chart">
+                            <div class="memory-bar">
+                                <div class="memory-used" id="memoryUsedBar"></div>
+                            </div>
+                            <div class="memory-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Total:</span>
+                                    <span class="stat-value" id="totalMemory">-</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Used:</span>
+                                    <span class="stat-value" id="usedMemory">-</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Free:</span>
+                                    <span class="stat-value" id="freeMemory">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="performanceTab">
+                    <div class="performance-charts">
+                        <div class="chart-container">
+                            <h4>CPU Usage</h4>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-area"></i>
+                                <p>Performance monitoring coming soon...</p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <h4>Memory Usage</h4>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-area"></i>
+                                <p>Performance monitoring coming soon...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- System Monitor Template -->
+    <template id="monitorTemplate">
+        <div class="system-monitor">
+            <div class="monitor-grid">
+                <div class="monitor-card">
+                    <h3>System Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Uptime:</span>
+                            <span class="info-value" id="uptimeValue">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Processes:</span>
+                            <span class="info-value" id="processCountValue">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Current Directory:</span>
+                            <span class="info-value" id="currentDirValue">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="monitor-card">
+                    <h3>Memory Usage</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="memoryProgress"></div>
+                    </div>
+                    <div class="progress-text" id="memoryProgressText">0%</div>
+                </div>
+
+                <div class="monitor-card">
+                    <h3>Disk Usage</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="diskProgress"></div>
+                    </div>
+                    <div class="progress-text" id="diskProgressText">0%</div>
+                </div>
+
+                <div class="monitor-card">
+                    <h3>File System</h3>
+                    <div class="filesystem-tree" id="filesystemTree"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Calculator Template -->
+    <template id="calculatorTemplate">
+        <div class="calculator">
+            <div class="calc-display">
+                <input type="text" id="calcInput" readonly value="0">
+            </div>
+            <div class="calc-buttons">
+                <button class="calc-btn clear">C</button>
+                <button class="calc-btn back">CE</button>
+                <button class="calc-btn op">/</button>
+                <button class="calc-btn op">*</button>
+                <button class="calc-btn num">7</button>
+                <button class="calc-btn num">8</button>
+                <button class="calc-btn num">9</button>
+                <button class="calc-btn op">-</button>
+                <button class="calc-btn num">4</button>
+                <button class="calc-btn num">5</button>
+                <button class="calc-btn num">6</button>
+                <button class="calc-btn op">+</button>
+                <button class="calc-btn num">1</button>
+                <button class="calc-btn num">2</button>
+                <button class="calc-btn num">3</button>
+                <button class="calc-btn equals">=</button>
+                <button class="calc-btn num zero">0</button>
+                <button class="calc-btn num">.</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Browser Template -->
+    <template id="browserTemplate">
+        <div class="browser">
+            <div class="browser-navbar">
+                <div class="nav-controls">
+                    <button id="browserBackBtn"><i class="fas fa-arrow-left"></i></button>
+                    <button id="browserForwardBtn"><i class="fas fa-arrow-right"></i></button>
+                    <button id="browserRefreshBtn"><i class="fas fa-sync"></i></button>
+                </div>
+                <div class="address-bar">
+                    <i class="fas fa-lock"></i>
+                    <input type="text" id="browserUrl" value="https://www.google.com">
+                </div>
+            </div>
+            <div class="browser-viewport">
+                <iframe id="browserIframe" src="https://www.google.com/search?igu=1" frameborder="0"></iframe>
+            </div>
+        </div>
+    </template>
+
+    <!-- Paint Template -->
+    <template id="paintTemplate">
+        <div class="paint">
+            <div class="paint-toolbar">
+                <input type="color" id="paintColor" value="#000000">
+                <input type="range" id="paintBrush" min="1" max="50" value="5">
+                <button id="paintClear"><i class="fas fa-trash-alt"></i> Clear</button>
+                <button id="paintSave"><i class="fas fa-save"></i> Save</button>
+            </div>
+            <div class="paint-canvas-container">
+                <canvas id="paintCanvas"></canvas>
+            </div>
+        </div>
+    </template>
+
+    <!-- Task Manager Template -->
+    <template id="taskManagerTemplate">
+        <div class="taskmanager">
+            <div class="tm-stats">
+                <div class="tm-stat">
+                    <span>CPU</span>
+                    <div class="tm-progress">
+                        <div id="tmCpu" class="tm-bar" style="width: 25%;"></div>
+                    </div>
+                    <small id="tmCpuText">25%</small>
+                </div>
+                <div class="tm-stat">
+                    <span>RAM</span>
+                    <div class="tm-progress">
+                        <div id="tmRam" class="tm-bar" style="width: 42%;"></div>
+                    </div>
+                    <small id="tmRamText">4.2 GB / 16 GB</small>
+                </div>
+            </div>
+            <table class="tm-table">
+                <thead>
+                    <tr>
+                        <th>Process Name</th>
+                        <th>PID</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tmProcessList">
+                    <!-- Processes will be listed here -->
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <!-- Theme Switcher Modal -->
+    <div id="themeSwitcherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Choose Theme</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="theme-grid">
+                    <div class="theme-option" data-theme="default">
+                        <div class="theme-preview default-theme">
+                            <div class="preview-desktop"></div>
+                            <div class="preview-taskbar"></div>
+                        </div>
+                        <h4>Default</h4>
+                        <p>Original purple gradient theme</p>
+                    </div>
+
+                    <div class="theme-option" data-theme="dark">
+                        <div class="theme-preview dark-theme">
+                            <div class="preview-desktop"></div>
+                            <div class="preview-taskbar"></div>
+                        </div>
+                        <h4>Dark</h4>
+                        <p>Dark mode for night usage</p>
+                    </div>
+
+                    <div class="theme-option" data-theme="light">
+                        <div class="theme-preview light-theme">
+                            <div class="preview-desktop"></div>
+                            <div class="preview-taskbar"></div>
+                        </div>
+                        <h4>Light</h4>
+                        <p>Bright and clean interface</p>
+                    </div>
+
+                    <div class="theme-option" data-theme="ocean">
+                        <div class="theme-preview ocean-theme">
+                            <div class="preview-desktop"></div>
+                            <div class="preview-taskbar"></div>
+                        </div>
+                        <h4>Ocean</h4>
+                        <p>Calm blue ocean colors</p>
+                    </div>
+
+                    <div class="theme-option" data-theme="forest">
+                        <div class="theme-preview forest-theme">
+                            <div class="preview-desktop"></div>
+                            <div class="preview-taskbar"></div>
+                        </div>
+                        <h4>Forest</h4>
+                        <p>Natural green tones</p>
+                    </div>
+                </div>
+
+                <div class="theme-settings">
+                    <h4>Theme Settings</h4>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="autoThemeSwitch" />
+                            Auto-switch theme based on time
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="smoothTransitions" checked />
+                            Enable smooth transitions
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Info Modal -->
+    <div id="systemInfoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>System Information</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="system-info-content">
+                    <h4>OS Simulator v1.0</h4>
+                    <p>A complete operating system simulator built with PHP and JavaScript</p>
+
+                    <div class="info-section">
+                        <h5>Features:</h5>
+                        <ul>
+                            <li>Process Management</li>
+                            <li>Memory Management</li>
+                            <li>File System Simulation</li>
+                            <li>Command Line Interface</li>
+                            <li>Graphical User Interface</li>
+                            <li>System Monitoring</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>Available Commands:</h5>
+                        <ul>
+                            <li><code>ls</code> - List directory contents</li>
+                            <li><code>cd</code> - Change directory</li>
+                            <li><code>pwd</code> - Print working directory</li>
+                            <li><code>mkdir</code> - Create directory</li>
+                            <li><code>touch</code> - Create file</li>
+                            <li><code>cat</code> - Display file contents</li>
+                            <li><code>ps</code> - List processes</li>
+                            <li><code>kill</code> - Terminate process</li>
+                            <li><code>free</code> - Show memory usage</li>
+                            <li><code>df</code> - Show disk usage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Management Modal -->
+    <div id="userManagementModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Management</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="user-management-tabs">
+                    <button class="tab-btn active" data-tab="current-user">Current User</button>
+                    <button class="tab-btn" data-tab="change-password">Change Password</button>
+                    <button class="tab-btn" data-tab="all-users">All Users</button>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="currentUserTab">
+                        <div class="user-info-display">
+                            <div class="info-item">
+                                <span class="info-label">Username:</span>
+                                <span class="info-value" id="displayUsername">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Role:</span>
+                                <span class="info-value" id="displayRole">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Login Time:</span>
+                                <span class="info-value" id="displayLoginTime">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="changePasswordTab">
+                        <form id="changePasswordForm">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password:</label>
+                                <input type="password" id="currentPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPasswordForm">New Password:</label>
+                                <input type="password" id="newPasswordForm" required minlength="6">
+                                <small>Minimum 6 characters</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmNewPassword">Confirm New Password:</label>
+                                <input type="password" id="confirmNewPassword" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="allUsersTab">
+                        <div class="user-list-container">
+                            <table class="user-table">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Role</th>
+                                        <th>Created</th>
+                                        <th>Last Login</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userTableBody">
+                                    <tr>
+                                        <td colspan="4" class="loading-row">Loading users...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

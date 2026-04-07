@@ -13,11 +13,13 @@ class TerminalApp {
         this.useLocalAuth = window.app && window.app.useLocalAuth;
 
         this.bindEvents();
-        this.printWelcome();
+        if (this.output) this.printWelcome();
     }
 
     bindEvents() {
-        this.input.addEventListener('keydown', (e) => this.handleInput(e));
+        if (this.input) {
+            this.input.addEventListener('keydown', (e) => this.handleInput(e));
+        }
     }
 
     handleInput(e) {
@@ -172,6 +174,7 @@ class TerminalApp {
     }
 
     printOutput(text, className = '') {
+        if (!this.output) return;
         const div = document.createElement('div');
         div.className = className;
         div.textContent = text;

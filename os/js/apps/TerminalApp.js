@@ -132,10 +132,16 @@ class TerminalApp {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ command: command })
                 });
-                result = await response.json();
+
+                const text = await response.text();
+                try {
+                    result = JSON.parse(text);
+                } catch (e) {
+                    result = { success: false, error: 'Server returned an invalid response. Details: ' + text.substring(0, 50) };
+                }
             }
 
-            if (result.success) {
+            if (result && result.success) {
                 if (result.action === 'clear') {
                     this.output.innerHTML = '';
                 } else if (result.data) {

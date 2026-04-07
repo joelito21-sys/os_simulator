@@ -30,15 +30,27 @@ class FileManagerApp {
                 const files = window.app.fs.list(this.currentPath);
                 result = { success: true, data: files };
             } else {
-                const response = await fetch('api/command.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ command: 'ls', args: [this.currentPath] })
-                });
-                result = await response.json();
+                try {
+                    const response = await fetch('api/command.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ command: 'ls', args: [this.currentPath] })
+                    });
+
+                    const text = await response.text();
+                    try {
+                        result = JSON.parse(text);
+                    } catch (e) {
+                        result = { success: false, error: 'Server returned an invalid response. Details: ' + text.substring(0, 50) };
+                    }
+                } catch (netError) {
+                    console.warn('Network error, falling back to Local Mode:', netError);
+                    const files = window.app.fs.list(this.currentPath);
+                    result = { success: true, data: files };
+                }
             }
 
-            if (result.success) {
+            if (result && result.success) {
                 this.displayFiles(result.data);
                 if (this.pathInput) this.pathInput.value = this.currentPath;
             } else {

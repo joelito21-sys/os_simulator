@@ -394,32 +394,59 @@ class OSSimulatorGUI {
     loadApplicationContent(app, window) {
         const content = window.element.querySelector('.window-content');
 
+        // Helper to inject template
+        const injectTemplate = (id) => {
+            const template = document.getElementById(id);
+            if (template) {
+                content.innerHTML = '';
+                content.appendChild(template.content.cloneNode(true));
+                return true;
+            }
+            return false;
+        };
+
         switch (app) {
             case 'terminal':
-                new TerminalApp(content);
+                if (injectTemplate('terminalTemplate')) {
+                    new TerminalApp(content);
+                }
                 break;
             case 'filemanager':
-                new FileManagerApp(content);
+                if (injectTemplate('fileManagerTemplate')) {
+                    new FileManagerApp(content);
+                }
                 break;
             case 'taskmanager':
-                new TaskManagerApp(content);
+                if (injectTemplate('taskManagerTemplate')) {
+                    new TaskManagerApp(content);
+                }
                 break;
             case 'monitor':
-                new SystemMonitorApp(content);
+                if (injectTemplate('monitorTemplate')) {
+                    new SystemMonitorApp(content);
+                }
                 break;
             case 'calculator':
-                new CalculatorApp(content);
+                if (injectTemplate('calculatorTemplate')) {
+                    new CalculatorApp(content);
+                }
                 break;
             case 'browser':
-                new BrowserApp(content);
+                if (injectTemplate('browserTemplate')) {
+                    new BrowserApp(content);
+                }
                 break;
             case 'paint':
-                new PaintApp(content);
+                if (injectTemplate('paintTemplate')) {
+                    new PaintApp(content);
+                }
                 break;
             case 'recyclebin':
-                const fm = new FileManagerApp(content);
-                fm.currentPath = '/recycle-bin';
-                fm.loadDirectory();
+                if (injectTemplate('fileManagerTemplate')) {
+                    const fm = new FileManagerApp(content);
+                    fm.currentPath = '/recycle-bin';
+                    fm.loadDirectory();
+                }
                 break;
             case 'editor':
                 this.loadTextEditor(content);

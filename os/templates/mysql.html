@@ -1,0 +1,61 @@
+<div class="pma-root">
+    <!-- phpMyAdmin-style header -->
+    <header class="pma-header">
+        <div class="pma-header-left">
+            <span class="pma-logo">php<span>MyAdmin</span></span>
+            <span class="pma-server-info" id="pmaServerInfo">localhost</span>
+        </div>
+        <div class="pma-header-right">
+            <span class="pma-user" id="pmaUser">root@localhost</span>
+            <span class="pma-version" id="pmaVersion"></span>
+            <button class="pma-header-btn" id="pmaRefreshBtn" title="Refresh"><i class="fas fa-sync"></i></button>
+        </div>
+    </header>
+
+    <div class="pma-layout">
+        <!-- Left navigation panel -->
+        <nav class="pma-nav">
+            <div class="pma-nav-tabs">
+                <button class="pma-nav-tab active" data-nav="tree">Recent</button>
+                <button class="pma-nav-tab" data-nav="favorites">Favorites</button>
+            </div>
+            <div class="pma-nav-search">
+                <input type="text" id="pmaTreeFilter" placeholder="Type to filter..." autocomplete="off">
+            </div>
+            <div class="pma-nav-tree-wrap">
+                <ul class="pma-tree" id="pmaDatabaseTree">
+                    <li class="pma-tree-loading">Loading...</li>
+                </ul>
+            </div>
+            <div class="pma-nav-footer">
+                <a href="#" id="pmaNavHome" class="pma-link"><i class="fas fa-home"></i> Home</a>
+                <a href="#" id="pmaNavLogout" class="pma-link"><i class="fas fa-sign-out-alt"></i> Log out</a>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <div class="pma-content">
+            <div class="pma-breadcrumb" id="pmaBreadcrumb">
+                <a href="#" data-bc="server">Server</a>
+                <span class="pma-bc-sep">»</span>
+                <span class="pma-bc-current">localhost</span>
+            </div>
+
+            <ul class="pma-tabs" id="pmaTabs"></ul>
+
+            <div class="pma-main" id="pmaMain">
+                <div class="pma-welcome" id="pmaWelcome">
+                    <h2>Welcome to phpMyAdmin</h2>
+                    <p>Connected to real MySQL. Select a database from the left panel.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden connection fields -->
+    <input type="hidden" id="mysqlHost" value="127.0.0.1">
+    <input type="hidden" id="mysqlPort" value="3306">
+    <input type="hidden" id="mysqlUser" value="root">
+    <input type="hidden" id="mysqlPassword" value="">
+    <input type="hidden" id="mysqlDatabase" value="">
+</div>

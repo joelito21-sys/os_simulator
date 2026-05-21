@@ -1,0 +1,195 @@
+<div class="xcp-root">
+
+    <!-- Header -->
+    <div class="xcp-header">
+        <div class="xcp-logo-box">
+            <div class="xcp-logo-icon">
+                <span class="xcp-logo-x">x</span>
+            </div>
+        </div>
+        <h1 class="xcp-title">XAMPP Control Panel v3.3.0 <span class="xcp-compiled">&nbsp;[ Compiled: Apr 6th 2021
+                ]</span></h1>
+        <div class="xcp-header-right"></div>
+    </div>
+
+    <!-- Body -->
+    <div class="xcp-body">
+
+        <!-- Left: Module Table Area -->
+        <div class="xcp-table-area">
+
+            <!-- Modules label row -->
+            <div class="xcp-modules-bar">
+                <span class="xcp-modules-label">Modules</span>
+            </div>
+
+            <!-- Column headers -->
+            <div class="xcp-col-headers">
+                <div class="xcp-ch xcp-ch-svc">Service</div>
+                <div class="xcp-ch xcp-ch-mod">Module</div>
+                <div class="xcp-ch xcp-ch-pid">PID(s)</div>
+                <div class="xcp-ch xcp-ch-port">Port(s)</div>
+                <div class="xcp-ch xcp-ch-act">Actions</div>
+            </div>
+
+            <!-- Module Rows -->
+            <div class="xcp-rows" id="xcpRows">
+
+                <!-- Apache -->
+                <div class="xcp-row" id="xrow-apache">
+                    <div class="xcp-cell xcp-cell-svc">
+                        <button class="xcp-svc-btn xcp-x-btn" id="xsvc-apache"
+                            title="Install as Windows Service">&#10007;</button>
+                    </div>
+                    <div class="xcp-cell xcp-cell-mod">
+                        <span class="xcp-modname" id="xmod-apache">Apache</span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-pid">
+                        <span id="xpid-apache"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-port">
+                        <span id="xport-apache"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-act">
+                        <button class="xcp-act xcp-act-start" id="xbtn-start-apache" data-mod="apache">Start</button>
+                        <button class="xcp-act xcp-act-admin inactive" id="xbtn-admin-apache"
+                            data-mod="apache">Admin</button>
+                        <button class="xcp-act xcp-act-config" id="xbtn-config-apache" data-mod="apache">Config</button>
+                        <button class="xcp-act xcp-act-logs" id="xbtn-logs-apache" data-mod="apache">Logs</button>
+                    </div>
+                </div>
+
+                <!-- MySQL -->
+                <div class="xcp-row" id="xrow-mysql">
+                    <div class="xcp-cell xcp-cell-svc">
+                        <button class="xcp-svc-btn xcp-chk-btn" id="xsvc-mysql"
+                            title="Uninstall Windows Service">&#10003;</button>
+                    </div>
+                    <div class="xcp-cell xcp-cell-mod">
+                        <span class="xcp-modname" id="xmod-mysql">MySQL</span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-pid">
+                        <span id="xpid-mysql"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-port">
+                        <span id="xport-mysql"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-act">
+                        <button class="xcp-act xcp-act-start" id="xbtn-start-mysql" data-mod="mysql">Start</button>
+                        <button class="xcp-act xcp-act-admin inactive" id="xbtn-admin-mysql"
+                            data-mod="mysql">Admin</button>
+                        <button class="xcp-act xcp-act-config" id="xbtn-config-mysql" data-mod="mysql">Config</button>
+                        <button class="xcp-act xcp-act-logs" id="xbtn-logs-mysql" data-mod="mysql">Logs</button>
+                    </div>
+                </div>
+
+                <!-- FileZilla -->
+                <div class="xcp-row" id="xrow-filezilla">
+                    <div class="xcp-cell xcp-cell-svc"></div>
+                    <div class="xcp-cell xcp-cell-mod">
+                        <span class="xcp-modname" id="xmod-filezilla">FileZilla</span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-pid">
+                        <span id="xpid-filezilla"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-port">
+                        <span id="xport-filezilla"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-act">
+                        <button class="xcp-act xcp-act-start" id="xbtn-start-filezilla"
+                            data-mod="filezilla">Start</button>
+                        <button class="xcp-act xcp-act-admin inactive" id="xbtn-admin-filezilla"
+                            data-mod="filezilla">Admin</button>
+                        <button class="xcp-act xcp-act-config" id="xbtn-config-filezilla"
+                            data-mod="filezilla">Config</button>
+                        <button class="xcp-act xcp-act-logs" id="xbtn-logs-filezilla" data-mod="filezilla">Logs</button>
+                    </div>
+                </div>
+
+                <!-- Mercury -->
+                <div class="xcp-row" id="xrow-mercury">
+                    <div class="xcp-cell xcp-cell-svc"></div>
+                    <div class="xcp-cell xcp-cell-mod">
+                        <span class="xcp-modname" id="xmod-mercury">Mercury</span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-pid">
+                        <span id="xpid-mercury"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-port">
+                        <span id="xport-mercury"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-act">
+                        <button class="xcp-act xcp-act-start" id="xbtn-start-mercury" data-mod="mercury">Start</button>
+                        <button class="xcp-act xcp-act-admin inactive" id="xbtn-admin-mercury"
+                            data-mod="mercury">Admin</button>
+                        <button class="xcp-act xcp-act-config" id="xbtn-config-mercury"
+                            data-mod="mercury">Config</button>
+                        <button class="xcp-act xcp-act-logs" id="xbtn-logs-mercury" data-mod="mercury">Logs</button>
+                    </div>
+                </div>
+
+                <!-- Tomcat -->
+                <div class="xcp-row" id="xrow-tomcat">
+                    <div class="xcp-cell xcp-cell-svc">
+                        <button class="xcp-svc-btn xcp-x-btn" id="xsvc-tomcat"
+                            title="Install as Windows Service">&#10007;</button>
+                    </div>
+                    <div class="xcp-cell xcp-cell-mod">
+                        <span class="xcp-modname" id="xmod-tomcat">Tomcat</span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-pid">
+                        <span id="xpid-tomcat"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-port">
+                        <span id="xport-tomcat"></span>
+                    </div>
+                    <div class="xcp-cell xcp-cell-act">
+                        <button class="xcp-act xcp-act-start" id="xbtn-start-tomcat" data-mod="tomcat">Start</button>
+                        <button class="xcp-act xcp-act-admin inactive" id="xbtn-admin-tomcat"
+                            data-mod="tomcat">Admin</button>
+                        <button class="xcp-act xcp-act-config" id="xbtn-config-tomcat" data-mod="tomcat">Config</button>
+                        <button class="xcp-act xcp-act-logs" id="xbtn-logs-tomcat" data-mod="tomcat">Logs</button>
+                    </div>
+                </div>
+
+            </div><!-- /.xcp-rows -->
+        </div><!-- /.xcp-table-area -->
+
+        <!-- Right Sidebar -->
+        <div class="xcp-sidebar">
+            <button class="xcp-side-btn" id="xside-config">
+                <img src="" class="xcp-side-ico" alt=""><i class="fas fa-wrench"></i>&nbsp; Config
+            </button>
+            <button class="xcp-side-btn" id="xside-netstat">
+                <i class="fas fa-network-wired"></i>&nbsp; Netstat
+            </button>
+            <button class="xcp-side-btn" id="xside-shell">
+                <i class="fas fa-terminal"></i>&nbsp; Shell
+            </button>
+            <button class="xcp-side-btn" id="xside-explorer">
+                <i class="fas fa-folder-open"></i>&nbsp; Explorer
+            </button>
+            <button class="xcp-side-btn" id="xside-services">
+                <i class="fas fa-cogs"></i>&nbsp; Services
+            </button>
+            <button class="xcp-side-btn" id="xside-help">
+                <i class="fas fa-question-circle"></i>&nbsp; Help
+            </button>
+            <button class="xcp-side-btn xcp-quit-btn" id="xside-quit">
+                <i class="fas fa-sign-out-alt"></i>&nbsp; Quit
+            </button>
+        </div>
+
+    </div><!-- /.xcp-body -->
+
+    <!-- Console / Event Log -->
+    <div class="xcp-console">
+        <div class="xcp-console-log" id="xcp-log"></div>
+    </div>
+
+    <!-- Config Dropdowns (hidden by default, positioned by JS) -->
+    <div class="xcp-dropdown" id="xcp-dropdown" style="display:none">
+        <div class="xcp-dropdown-inner" id="xcp-dropdown-inner"></div>
+    </div>
+
+</div>

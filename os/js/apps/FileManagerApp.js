@@ -89,10 +89,19 @@ class FileManagerApp {
             item.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                if (confirm(`Delete ${file.name}?`)) {
-                    window.app.fs.delete(file.path);
-                    this.loadDirectory();
-                    window.app.notify(`${file.name} moved to Recycle Bin`);
+
+                if (this.currentPath === '/recycle-bin') {
+                    if (confirm(`Restore ${file.name}?`)) {
+                        window.app.fs.restore(file.name);
+                        this.loadDirectory();
+                        window.app.notify(`${file.name} restored to Desktop`);
+                    }
+                } else {
+                    if (confirm(`Delete ${file.name}?`)) {
+                        window.app.fs.delete(file.path);
+                        this.loadDirectory();
+                        window.app.notify(`${file.name} moved to Recycle Bin`);
+                    }
                 }
             });
 
@@ -104,7 +113,7 @@ class FileManagerApp {
         if (file.type === 'directory') {
             this.navigateToDirectory(file.name);
         } else {
-            this.openFile(file.name);
+            this.openFile(file.path);
         }
     }
 
@@ -129,8 +138,8 @@ class FileManagerApp {
         this.goUp();
     }
 
-    openFile(fileName) {
-        alert(`Opening file: ${fileName}\n(Feature coming soon!)`);
+    openFile(filePath) {
+        if (window.app) window.app.openFile(filePath);
     }
 
     async createNewFolder() {

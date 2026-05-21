@@ -72,6 +72,40 @@ class FileSystem {
         delete this.data[path];
         this.save();
     }
+
+    restore(name) {
+        const recyclePath = `/recycle-bin/${name}`;
+        if (!this.data[recyclePath]) return false;
+
+        // Restore to original or desktop if original lost
+        const targetDir = '/home/user/Desktop';
+        const targetPath = `${targetDir}/${name}`;
+
+        if (!this.data[targetDir].children.includes(name)) {
+            this.data[targetDir].children.push(name);
+        }
+        this.data[targetPath] = this.data[recyclePath];
+
+        // Remove from recycle bin
+        this.data['/recycle-bin'].children = this.data['/recycle-bin'].children.filter(n => n !== name);
+        delete this.data[recyclePath];
+        this.save();
+        return true;
+    }
+
+    readFile(path) {
+        const item = this.data[path];
+        return (item && item.type === 'file') ? item.content : null;
+    }
+
+    writeFile(path, content) {
+        if (this.data[path] && this.data[path].type === 'file') {
+            this.data[path].content = content;
+            this.save();
+            return true;
+        }
+        return false;
+    }
 }
 
 export default FileSystem;

@@ -1,0 +1,96 @@
+:root {
+    /* Base Colors - Deep Dark Mode */
+    --bg-primary: #0a0b10;
+    --bg-secondary: #1a1b26;
+    --bg-tertiary: #24283b;
+
+    /* Surface Colors with Glassmorphism */
+    --surface-glass: rgba(15, 17, 26, 0.75);
+    --surface-glass-border: rgba(255, 255, 255, 0.1);
+    --surface-glass-highlight: rgba(255, 255, 255, 0.05);
+
+    /* Accent Colors - Vibrant & Premium */
+    --accent-blue: #3d5afe;
+    --accent-purple: #7c4dff;
+    --accent-pink: #ff4081;
+    --accent-cyan: #00e5ff;
+    --accent-gradient: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+
+    /* Text Colors */
+    --text-main: #e1e1e6;
+    --text-dim: #a9b1d6;
+    --text-muted: #565f89;
+    --text-bright: #ffffff;
+
+    /* Functional Colors */
+    --success: #4caf50;
+    --warning: #ffb74d;
+    --error: #f44336;
+    --info: #2196f3;
+
+    /* Layout & Sizing */
+    --taskbar-height: 54px;
+    --border-radius-lg: 12px;
+    --border-radius-md: 8px;
+    --border-radius-sm: 4px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.4);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    /* Transitions */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}

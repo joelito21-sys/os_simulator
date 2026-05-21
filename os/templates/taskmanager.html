@@ -1,0 +1,63 @@
+<div class="task-manager">
+    <div class="task-manager-tabs">
+        <button class="tab-btn active" data-tab="processes">Processes</button>
+        <button class="tab-btn" data-tab="memory">Memory</button>
+        <button class="tab-btn" data-tab="performance">Performance</button>
+    </div>
+    <div class="task-manager-toolbar">
+        <button class="btn" id="newProcessBtn"><i class="fas fa-plus"></i> New Process</button>
+        <button class="btn" id="killProcessBtn"><i class="fas fa-times"></i> Kill Process</button>
+        <button class="btn" id="refreshProcessesBtn"><i class="fas fa-sync"></i> Refresh</button>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="processesTab">
+            <table class="process-table">
+                <thead>
+                    <tr>
+                        <th>PID</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>State</th>
+                        <th>Memory</th>
+                        <th>CPU</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="processTableBody"></tbody>
+            </table>
+        </div>
+        <div class="tab-pane" id="memoryTab">
+            <div class="memory-info">
+                <div class="memory-chart">
+                    <div class="memory-bar">
+                        <div class="memory-used" id="memoryUsedBar"></div>
+                    </div>
+                    <div class="memory-stats">
+                        <div class="stat"><span class="stat-label">Total:</span><span class="stat-value"
+                                id="totalMemory">-</span></div>
+                        <div class="stat"><span class="stat-label">Used:</span><span class="stat-value"
+                                id="usedMemory">-</span></div>
+                        <div class="stat"><span class="stat-label">Free:</span><span class="stat-value"
+                                id="freeMemory">-</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="performanceTab">
+            <div class="performance-charts">
+                <div class="chart-container">
+                    <h4>CPU Usage</h4>
+                    <div class="chart-placeholder"><i class="fas fa-chart-area"></i>
+                        <p>Performance monitoring coming soon...</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h4>Memory Usage</h4>
+                    <div class="chart-placeholder"><i class="fas fa-chart-area"></i>
+                        <p>Performance monitoring coming soon...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="system-monitor">
+    <div class="monitor-grid">
+        <div class="monitor-card">
+            <h3>System Information</h3>
+            <div class="info-grid">
+                <div class="info-item"><span class="info-label">Uptime:</span><span class="info-value"
+                        id="uptimeValue">-</span></div>
+                <div class="info-item"><span class="info-label">Processes:</span><span class="info-value"
+                        id="processCountValue">-</span></div>
+                <div class="info-item"><span class="info-label">Directory:</span><span class="info-value"
+                        id="currentDirValue">-</span></div>
+            </div>
+        </div>
+        <div class="monitor-card">
+            <h3>Memory Usage</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="memoryProgress"></div>
+            </div>
+            <div class="progress-text" id="memoryProgressText">0%</div>
+        </div>
+        <div class="monitor-card">
+            <h3>Disk Usage</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="diskProgress"></div>
+            </div>
+            <div class="progress-text" id="diskProgressText">0%</div>
+        </div>
+        <div class="monitor-card">
+            <h3>File System</h3>
+            <div class="filesystem-tree" id="filesystemTree"></div>
+        </div>
+    </div>
+</div>

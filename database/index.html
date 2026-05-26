@@ -3,38 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Simulator</title>
+    <title>Database Simulator - JavaScript Edition</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Database Simulator</h1>
-            <p>Execute SQL queries on simulated database tables</p>
+            <h1>🗄️ Advanced Database Simulator</h1>
+            <p>Full-featured SQL database with JOINs, Transactions, Indexes, Views & more</p>
+            <div id="currentDbIndicator" class="db-indicator"></div>
+            <div class="connection-status" id="connectionStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Simulated Mode</span>
+                <button id="connectRealDbBtn" class="btn btn-sm btn-info">Connect to Real MySQL</button>
+            </div>
         </header>
 
         <main>
+            <div class="database-selector">
+                <div class="db-selector-group">
+                    <label for="dbSelect">Active Database:</label>
+                    <select id="dbSelect">
+                        <option value="default">Default Database</option>
+                    </select>
+                </div>
+                <div class="db-selector-group" id="realDbSelector" style="display: none;">
+                    <label for="realDbSelect">Real MySQL Database:</label>
+                    <select id="realDbSelect">
+                        <option value="">Select a database...</option>
+                    </select>
+                </div>
+                <button id="createDbBtn" class="btn btn-success">+ New Database</button>
+                <button id="resetDbBtn" class="btn btn-danger" title="Reset all databases to default">🔄 Reset</button>
+            </div>
+
             <div class="query-section">
                 <div class="query-header">
                     <h2>SQL Query Editor</h2>
                     <div class="query-actions">
-                        <button id="executeBtn" class="btn btn-primary">Execute Query</button>
+                        <button id="executeBtn" class="btn btn-primary">▶ Execute (Ctrl+Enter)</button>
                         <button id="clearBtn" class="btn btn-secondary">Clear</button>
                         <button id="sampleQueriesBtn" class="btn btn-info">Sample Queries</button>
+                        <button id="exportBtn" class="btn btn-success">Export Data</button>
                     </div>
                 </div>
                 
                 <div class="query-editor">
-                    <textarea id="queryInput" placeholder="Enter your SQL query here..."></textarea>
+                    <textarea id="queryInput" placeholder="Enter your SQL query here...
+Examples:
+  SELECT * FROM users
+  INSERT INTO products (name, price) VALUES ('Tablet', 499.99)
+  UPDATE users SET age = 26 WHERE id = 1
+  DELETE FROM users WHERE id = 5"></textarea>
                 </div>
                 
                 <div class="quick-actions">
                     <span class="quick-label">Quick Actions:</span>
-                    <button class="quick-btn" data-query="SELECT * FROM users">Show Users</button>
-                    <button class="quick-btn" data-query="SELECT * FROM products">Show Products</button>
-                    <button class="quick-btn" data-query="SHOW TABLES">Show Tables</button>
-                    <button class="quick-btn" data-query="DESCRIBE users">Describe Users</button>
+                    <button class="quick-btn" data-query="SHOW TABLES">📋 Tables</button>
+                    <button class="quick-btn" data-query="SELECT * FROM users">👥 Users</button>
+                    <button class="quick-btn" data-query="SELECT * FROM products">📦 Products</button>
+                    <button class="quick-btn" data-query="SELECT * FROM orders">🛒 Orders</button>
+                    <button class="quick-btn" data-query="DESCRIBE users">ℹ️ Schema</button>
                 </div>
             </div>
 
@@ -44,12 +73,25 @@
                     <div class="results-info">
                         <span id="rowCount"></span>
                         <span id="executionTime"></span>
+                        <button id="clearResultsBtn" class="btn btn-sm btn-secondary">Clear Results</button>
                     </div>
                 </div>
                 
                 <div id="resultsContainer" class="results-container">
                     <div class="placeholder">
                         <p>Execute a query to see results here</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <div class="history-header">
+                    <h2>Query History</h2>
+                    <button id="clearHistoryBtn" class="btn btn-sm btn-secondary">Clear History</button>
+                </div>
+                <div id="historyContainer" class="history-container">
+                    <div class="placeholder">
+                        <p>Your query history will appear here</p>
                     </div>
                 </div>
             </div>
@@ -77,7 +119,7 @@
             </div>
             <div class="modal-body">
                 <div class="query-category">
-                    <h4>Basic SELECT Queries</h4>
+                    <h4>📊 SELECT Queries</h4>
                     <div class="sample-query" data-query="SELECT * FROM users">
                         <code>SELECT * FROM users</code>
                         <p>Select all records from users table</p>
@@ -90,37 +132,171 @@
                         <code>SELECT * FROM products ORDER BY price DESC LIMIT 3</code>
                         <p>Select top 3 most expensive products</p>
                     </div>
+                    <div class="sample-query" data-query="SELECT category, COUNT(*) as count, AVG(price) as avg_price FROM products GROUP BY category">
+                        <code>SELECT category, COUNT(*), AVG(price) FROM products GROUP BY category</code>
+                        <p>Group products by category with statistics</p>
+                    </div>
                 </div>
                 
                 <div class="query-category">
-                    <h4>INSERT Queries</h4>
+                    <h4>➕ INSERT Queries</h4>
                     <div class="sample-query" data-query="INSERT INTO users (name, email, age) VALUES ('Test User', 'test@example.com', 28)">
                         <code>INSERT INTO users (name, email, age) VALUES ('Test User', 'test@example.com', 28)</code>
                         <p>Insert a new user record</p>
                     </div>
-                </div>
-                
-                <div class="query-category">
-                    <h4>UPDATE Queries</h4>
-                    <div class="sample-query" data-query="UPDATE users SET age = 26 WHERE id = 1">
-                        <code>UPDATE users SET age = 26 WHERE id = 1</code>
-                        <p>Update user age for specific record</p>
+                    <div class="sample-query" data-query="INSERT INTO products (name, price, category, stock) VALUES ('Headphones', 89.99, 'Electronics', 100)">
+                        <code>INSERT INTO products (name, price, category, stock) VALUES ('Headphones', 89.99, 'Electronics', 100)</code>
+                        <p>Insert a new product</p>
                     </div>
                 </div>
                 
                 <div class="query-category">
-                    <h4>DELETE Queries</h4>
-                    <div class="sample-query" data-query="DELETE FROM users WHERE id > 4">
-                        <code>DELETE FROM users WHERE id > 4</code>
-                        <p>Delete users with ID greater than 4</p>
+                    <h4>✏️ UPDATE Queries</h4>
+                    <div class="sample-query" data-query="UPDATE users SET age = 26 WHERE id = 1">
+                        <code>UPDATE users SET age = 26 WHERE id = 1</code>
+                        <p>Update user age for specific record</p>
+                    </div>
+                    <div class="sample-query" data-query="UPDATE products SET price = 799.99 WHERE name = 'Laptop'">
+                        <code>UPDATE products SET price = 799.99 WHERE name = 'Laptop'</code>
+                        <p>Update product price</p>
+                    </div>
+                </div>
+                
+                <div class="query-category">
+                    <h4>🗑️ DELETE Queries</h4>
+                    <div class="sample-query" data-query="DELETE FROM users WHERE id = 4">
+                        <code>DELETE FROM users WHERE id = 4</code>
+                        <p>Delete specific user record</p>
+                    </div>
+                </div>
+
+                <div class="query-category">
+                    <h4>🔧 Database Operations</h4>
+                    <div class="sample-query" data-query="SHOW TABLES">
+                        <code>SHOW TABLES</code>
+                        <p>List all tables in database</p>
+                    </div>
+                    <div class="sample-query" data-query="SHOW DATABASES">
+                        <code>SHOW DATABASES</code>
+                        <p>List all databases</p>
+                    </div>
+                    <div class="sample-query" data-query="DESCRIBE users">
+                        <code>DESCRIBE users</code>
+                        <p>Show table structure</p>
+                    </div>
+                    <div class="sample-query" data-query="CREATE TABLE employees (id, name, position, salary, department)">
+                        <code>CREATE TABLE employees (id, name, position, salary, department)</code>
+                        <p>Create a new table</p>
+                    </div>
+                </div>
+
+                <div class="query-category">
+                    <h4>🔗 JOIN Operations</h4>
+                    <div class="sample-query" data-query="SELECT * FROM orders o INNER JOIN users u ON o.user_id = u.id">
+                        <code>SELECT * FROM orders o INNER JOIN users u ON o.user_id = u.id</code>
+                        <p>Join orders with users</p>
+                    </div>
+                    <div class="sample-query" data-query="SELECT o.id, u.name, p.name as product, o.total_price FROM orders o INNER JOIN users u ON o.user_id = u.id INNER JOIN products p ON o.product_id = p.id">
+                        <code>SELECT o.id, u.name, p.name, o.total_price FROM orders o INNER JOIN users u ON o.user_id = u.id INNER JOIN products p ON o.product_id = p.id</code>
+                        <p>Three-table join</p>
+                    </div>
+                </div>
+
+                <div class="query-category">
+                    <h4>📈 Aggregate Functions</h4>
+                    <div class="sample-query" data-query="SELECT category, COUNT(*) as count, AVG(price) as avg_price, MAX(price) as max_price, MIN(price) as min_price FROM products GROUP BY category">
+                        <code>SELECT category, COUNT(*), AVG(price), MAX(price), MIN(price) FROM products GROUP BY category</code>
+                        <p>Group products by category with statistics</p>
+                    </div>
+                    <div class="sample-query" data-query="SELECT category, COUNT(*) as product_count, SUM(stock) as total_stock FROM products GROUP BY category HAVING product_count > 1">
+                        <code>SELECT category, COUNT(*), SUM(stock) FROM products GROUP BY category HAVING COUNT(*) > 1</code>
+                        <p>Group with HAVING clause</p>
+                    </div>
+                    <div class="sample-query" data-query="SELECT status, COUNT(*) as order_count, SUM(total_price) as revenue FROM orders GROUP BY status">
+                        <code>SELECT status, COUNT(*), SUM(total_price) FROM orders GROUP BY status</code>
+                        <p>Order statistics by status</p>
+                    </div>
+                </div>
+
+                <div class="query-category">
+                    <h4>🔄 Transactions</h4>
+                    <div class="sample-query" data-query="BEGIN">
+                        <code>BEGIN</code>
+                        <p>Start a transaction</p>
+                    </div>
+                    <div class="sample-query" data-query="COMMIT">
+                        <code>COMMIT</code>
+                        <p>Commit transaction (save changes)</p>
+                    </div>
+                    <div class="sample-query" data-query="ROLLBACK">
+                        <code>ROLLBACK</code>
+                        <p>Rollback transaction (undo changes)</p>
+                    </div>
+                </div>
+
+                <div class="query-category">
+                    <h4>📑 Index Management</h4>
+                    <div class="sample-query" data-query="CREATE INDEX idx_name ON users(name)">
+                        <code>CREATE INDEX idx_name ON users(name)</code>
+                        <p>Create an index</p>
+                    </div>
+                    <div class="sample-query" data-query="SHOW INDEX FROM users">
+                        <code>SHOW INDEX FROM users</code>
+                        <p>Show table indexes</p>
+                    </div>
+                    <div class="sample-query" data-query="DROP INDEX idx_name ON users">
+                        <code>DROP INDEX idx_name ON users</code>
+                        <p>Drop an index</p>
+                    </div>
+                </div>
+
+                <div class="query-category">
+                    <h4>👁️ Views</h4>
+                    <div class="sample-query" data-query="CREATE VIEW active_users AS SELECT * FROM users WHERE status = 'active'">
+                        <code>CREATE VIEW active_users AS SELECT * FROM users WHERE status = 'active'</code>
+                        <p>Create a view</p>
+                    </div>
+                    <div class="sample-query" data-query="SHOW VIEWS">
+                        <code>SHOW VIEWS</code>
+                        <p>Show all views</p>
+                    </div>
+                    <div class="sample-query" data-query="DROP VIEW active_users">
+                        <code>DROP VIEW active_users</code>
+                        <p>Drop a view</p>
+                    </div>
+                </div>
+
+                <div class="query-category">
+                    <h4>🔍 Query Analysis</h4>
+                    <div class="sample-query" data-query="EXPLAIN SELECT * FROM users WHERE age > 25">
+                        <code>EXPLAIN SELECT * FROM users WHERE age > 25</code>
+                        <p>Show query execution plan</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <!-- Create Database Modal -->
+    <div id="createDbModal" class="modal">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h3>Create New Database</h3>
+                <span class="close-db">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="dbNameInput">Database Name:</label>
+                    <input type="text" id="dbNameInput" placeholder="my_database">
+                </div>
+                <div class="modal-actions">
+                    <button id="confirmCreateDbBtn" class="btn btn-primary">Create</button>
+                    <button id="cancelCreateDbBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/app.js"></script>
 </body>
 </html>
